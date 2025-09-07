@@ -3,42 +3,82 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiGithub, FiLinkedin, FiMail, FiMenu, FiX, FiSun, FiMoon } from 'react-icons/fi';
 import { useTheme } from '../../context/ThemeContext';
 
-const Navbar = ({ activeSection, scrollToSection }) => {
+const Navbar = ({ scrollToSection }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
   const { theme, toggleTheme } = useTheme();
+
+  const handleNavClick = (sectionId, offset = 0) => {
+    if (scrollToSection) {
+      scrollToSection(sectionId, offset);
+    }
+    setIsMobileMenuOpen(false);
+    // Update URL hash without page jump
+    if (window.history.pushState) {
+      window.history.pushState(null, null, `#${sectionId}`);
+    } else {
+      window.location.hash = `#${sectionId}`;
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
+      
+      // Find which section is in view
+      const sections = ['home', 'skills', 'projects', 'contact'];
+      const scrollPosition = window.scrollY + 100; // 100px offset from top
+      
+      for (let i = 0; i < sections.length; i++) {
+        const section = sections[i];
+        const element = document.getElementById(section);
+        
+        if (element) {
+          const sectionTop = element.offsetTop;
+          const sectionHeight = element.offsetHeight;
+          const sectionBottom = sectionTop + sectionHeight;
+          
+          // If we're at the last section or the next section is below the current scroll position
+          if (i === sections.length - 1 || scrollPosition < document.getElementById(sections[i + 1])?.offsetTop) {
+            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+              setActiveSection(section);
+              break;
+            }
+          }
+        }
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    // Initial check
+    handleScroll();
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navLinks = [
-    { name: 'Home', id: 'home' },
-    { name: 'Projects', id: 'projects' },
-    { name: 'Skills', id: 'skills' },
-    { name: 'Contact', id: 'contact' },
+    { name: 'Home', id: 'home', offset: -80 },
+    { name: 'Skills', id: 'skills', offset: -40 },
+    { name: 'Projects', id: 'projects', offset: -40 },
+    { name: 'Contact', id: 'contact', offset: -40 },
   ];
 
   const socialLinks = [
     {
       name: 'GitHub',
       icon: <FiGithub className="w-5 h-5" />,
-      href: 'https://github.com/yourusername',
+      href: 'https://github.com/saran887',
     },
     {
       name: 'LinkedIn',
       icon: <FiLinkedin className="w-5 h-5" />,
-      href: 'https://linkedin.com/in/yourusername',
+      href: 'https://linkedin.com/in/saran-sarvesh-a-g-950357285',
     },
     {
       name: 'Email',
       icon: <FiMail className="w-5 h-5" />,
-      href: 'mailto:your.email@example.com',
+      href: 'mailto:saransarvesh213@gmail.com',
     },
   ];
 
@@ -59,28 +99,53 @@ const Navbar = ({ activeSection, scrollToSection }) => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <button onClick={() => scrollToSection('home')} className="focus:outline-none">
+            <a 
+              href="#home" 
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick('home');
+              }} 
+              className="focus:outline-none hover:cursor-pointer focus:ring-2 focus:ring-cyan-400 focus:ring-opacity-50 rounded px-2 py-1 transition-all"
+              aria-label="Home"
+            >
               Saran Sarvesh
-            </button>
+            </a>
           </motion.div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <button
+              <a
                 key={link.id}
-                onClick={() => scrollToSection(link.id)}
-                className={`relative px-2 py-1 text-sm font-medium transition-colors ${
+                href={`#${link.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick(link.id, link.offset);
+                }}
+                className={`relative px-4 py-2 text-base font-medium transition-all duration-300 rounded-md group ${
                   activeSection === link.id
-                    ? 'text-cyan-400'
-                    : 'text-gray-300 hover:text-white'
+                    ? 'text-white font-semibold scale-105'
+                    : 'text-gray-300 hover:text-white hover:bg-gray-800/30'
                 }`}
+                aria-current={activeSection === link.id ? 'page' : undefined}
               >
-                {link.name}
+                <span className="relative z-10 flex items-center">
+                  {link.name}
+                  <motion.span 
+                    className={`absolute -bottom-1 left-0 right-0 h-0.5 bg-cyan-400`}
+                    initial={false}
+                    animate={{
+                      width: activeSection === link.id ? '100%' : '0%',
+                      opacity: activeSection === link.id ? 1 : 0
+                    }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                  />
+                </span>
                 {activeSection === link.id && (
                   <motion.span
                     layoutId="activeNavItem"
-                    className="absolute left-0 -bottom-1 w-full h-0.5 bg-cyan-400"
+                    className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-blue-600/10 rounded-md z-0"
+                    initial={false}
                     transition={{
                       type: 'spring',
                       stiffness: 300,
@@ -88,17 +153,17 @@ const Navbar = ({ activeSection, scrollToSection }) => {
                     }}
                   />
                 )}
-              </button>
+              </a>
             ))}
 
-            <div className="flex items-center space-x-4 ml-6">
+            <div className="hidden md:flex items-center space-x-4 ml-6">
               {socialLinks.map((social) => (
                 <a
                   key={social.name}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-cyan-400 transition-colors"
+                  className="text-gray-400 hover:text-cyan-400 transition-colors p-2 rounded-full hover:bg-gray-800/30"
                   aria-label={social.name}
                 >
                   {social.icon}
@@ -143,33 +208,35 @@ const Navbar = ({ activeSection, scrollToSection }) => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden overflow-hidden"
+            className="md:hidden overflow-hidden fixed top-16 left-0 right-0 bg-gray-900/95 backdrop-blur-md shadow-xl"
           >
-            <div className="px-4 pt-2 pb-4 space-y-2 bg-gray-900/95 backdrop-blur-md">
+            <div className="px-4 pt-2 pb-6 space-y-2">
               {navLinks.map((link) => (
-                <button
+                <a
                   key={link.id}
-                  onClick={() => {
-                    scrollToSection(link.id);
-                    setIsMobileMenuOpen(false);
+                  href={`#${link.id}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(link.id, link.offset);
                   }}
-                  className={`block w-full text-left px-3 py-2 rounded-md text-sm font-medium ${
+                  className={`block w-full text-left px-6 py-4 rounded-lg text-base font-medium transition-colors ${
                     activeSection === link.id
-                      ? 'bg-gray-800 text-cyan-400'
-                      : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                      ? 'bg-gradient-to-r from-cyan-500/90 to-blue-600/90 text-white font-semibold shadow-lg'
+                      : 'text-gray-300 hover:bg-gray-800/50 hover:text-white'
                   }`}
+                  aria-current={activeSection === link.id ? 'page' : undefined}
                 >
                   {link.name}
-                </button>
+                </a>
               ))}
-              <div className="flex justify-center space-x-6 pt-3">
+              <div className="flex justify-center space-x-8 pt-6 pb-4">
                 {socialLinks.map((social) => (
                   <a
                     key={social.name}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-cyan-400 transition-colors"
+                    className="text-gray-400 hover:text-cyan-400 transition-colors p-3 rounded-full hover:bg-gray-800/50"
                     aria-label={social.name}
                   >
                     {social.icon}

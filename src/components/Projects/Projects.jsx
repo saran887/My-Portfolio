@@ -5,14 +5,14 @@ const projects = [
   {
     title: 'Real-Time Object Detection',
     description: 'AI-powered real-time object detection system with voice alerts for accessibility & safety',
-    technologies: ['Python', 'TensorFlow', 'OpenCV', 'React'],
+    technologies: ['Python', 'TensorFlow', 'OpenCV', 'MobileNet SSD'],
     github: 'https://github.com/saran887/real-time-object-detection',
     demo: '#',
   },
   {
     title: 'Construction Portfolio',
     description: 'Modern responsive website showcasing projects with interactive galleries',
-    technologies: ['React', 'Tailwind CSS', 'Framer Motion'],
+    technologies: ['React', 'Tailwind CSS', 'Framer Motion','Node.js','MongoDB'],
     github: 'https://github.com/saran887/construction-portfolio',
     demo: '#',
   },
@@ -26,7 +26,7 @@ const projects = [
   {
     title: 'Sales Card Generator',
     description: 'Dynamic tool for customizable sales cards with analytics & performance tracking',
-    technologies: ['React', 'Node.js', 'MongoDB', 'Chart.js'],
+    technologies: ['Python', 'Pandas', 'Numpy', 'Flask'],
     github: 'https://github.com/saran887/sales-card-generator',
     demo: '#',
   },

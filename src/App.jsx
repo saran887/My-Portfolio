@@ -16,14 +16,19 @@ function App() {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1000);
-
     return () => clearTimeout(timer);
   }, []);
 
-  const scrollToSection = (sectionId) => {
+  const scrollToSection = (sectionId, offset = 0) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - (offset || 0);
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
       setActiveSection(sectionId);
     }
   };
@@ -41,8 +46,8 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
-      <Navbar activeSection={activeSection} setActiveSection={setActiveSection} />
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
+      <Navbar scrollToSection={scrollToSection} />
       
       <AnimatePresence mode="wait">
         <main className="overflow-hidden">
@@ -50,15 +55,15 @@ function App() {
             <Hero scrollToSection={scrollToSection} />
           </section>
           
-          <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-800">
+          <section id="skills" className="py-20 bg-gray-50 dark:bg-gray-800">
             <div className="container mx-auto px-4">
-              <Projects />
+              <Skills />
             </div>
           </section>
           
-          <section id="skills" className="py-20">
+          <section id="projects" className="py-20">
             <div className="container mx-auto px-4">
-              <Skills />
+              <Projects />
             </div>
           </section>
           

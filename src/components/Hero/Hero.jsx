@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FiDownload, FiGithub, FiLinkedin, FiMail, FiChevronDown } from 'react-icons/fi';
+import { FiChevronDown, FiMail } from 'react-icons/fi';
 
 const Hero = ({ scrollToSection }) => {
   const container = {
@@ -17,24 +17,6 @@ const Hero = ({ scrollToSection }) => {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0 },
   };
-
-  const socialLinks = [
-    {
-      name: 'GitHub',
-      icon: <FiGithub className="w-5 h-5" />,
-      href: 'https://github.com/yourusername',
-    },
-    {
-      name: 'LinkedIn',
-      icon: <FiLinkedin className="w-5 h-5" />,
-      href: 'https://linkedin.com/in/yourusername',
-    },
-    {
-      name: 'Email',
-      icon: <FiMail className="w-5 h-5" />,
-      href: 'mailto:your.email@example.com',
-    },
-  ];
 
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden">
@@ -83,73 +65,28 @@ const Hero = ({ scrollToSection }) => {
           {/* CTA Buttons */}
           <motion.div
             variants={item}
-            className="flex flex-wrap justify-center gap-4 mb-12"
+            className="flex justify-center mb-12"
           >
             <a
-              href="#"
-              download
-              className="btn btn-primary flex items-center gap-2"
-            >
-              <FiDownload /> Download Resume
-            </a>
-            <a
               href="#contact"
-              className="btn btn-outline flex items-center gap-2"
+              className="px-6 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-medium rounded-full shadow hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2"
             >
               <FiMail /> Contact Me
             </a>
           </motion.div>
 
-          {/* Social Links */}
+          {/* Project Section Button */}
           <motion.div
             variants={item}
-            className="flex justify-center space-x-6 mb-12"
+            className="mt-12"
           >
-            <a
-              href="https://github.com/saran887"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+            <button
+              onClick={() => scrollToSection('projects')}
+              className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-medium rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center mx-auto"
             >
-              <FiGithub className="w-6 h-6" />
-            </a>
-            <a
-              href="https://linkedin.com/in/saran-sarvesh-a-g-950357285"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-            >
-              <FiLinkedin className="w-6 h-6" />
-            </a>
-            <a
-              href="mailto:saransarvesh213@gmail.com"
-              className="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-            >
-              <FiMail className="w-6 h-6" />
-            </a>
-          </motion.div>
-
-          {/* Scroll Down Button */}
-          <motion.div
-            variants={item}
-            className="flex flex-col items-center justify-center mt-8"
-            onClick={() => scrollToSection('projects')}
-            style={{ cursor: 'pointer' }}
-          >
-            <div className="w-8 h-12 rounded-full border-2 border-gray-400 flex justify-center p-2">
-              <motion.div
-                className="w-1 h-3 bg-gray-400 rounded-full"
-                animate={{
-                  y: [0, 10, 0],
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-              />
-            </div>
-            <span className="text-xs text-gray-400 block mt-2">Scroll Down</span>
+              Explore My Projects
+              <FiChevronDown className="ml-2 w-5 h-5" />
+            </button>
           </motion.div>
         </motion.div>
       </div>
