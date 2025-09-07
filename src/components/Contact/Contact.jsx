@@ -40,7 +40,8 @@ const Contact = () => {
       title: 'Resume',
       value: 'Download PDF',
       icon: <FiFileText className="w-6 h-6 text-red-500" />,
-      href: '#'
+      href: 'https://drive.google.com/file/d/1UxHqPqUjk-7eurf4sK6MU-C3T0C5OLjz/view?usp=sharing',
+      target: '_blank'
     }
   ];
   return (

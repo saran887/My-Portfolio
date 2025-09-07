@@ -7,21 +7,21 @@ const projects = [
     description: 'AI-powered real-time object detection system with voice alerts for accessibility & safety',
     technologies: ['Python', 'TensorFlow', 'OpenCV', 'MobileNet SSD'],
     github: 'https://github.com/saran887/real-time-object-detection',
-    demo: '#',
+    
   },
   {
     title: 'Construction Portfolio',
     description: 'Modern responsive website showcasing projects with interactive galleries',
     technologies: ['React', 'Tailwind CSS', 'Framer Motion','Node.js','MongoDB'],
     github: 'https://github.com/saran887/construction-portfolio',
-    demo: '#',
+    demo: 'https://construction-website-git-main-sarans-projects-ffa5672c.vercel.app?_vercel_share=RynzIlxEehWUlNGk695ZpSxmmQTttnQk',
   },
   {
     title: 'Smart Voting System',
     description: 'AI-based voting platform with face verification for secure elections',
     technologies: ['Python', 'OpenCV', 'Flask', 'MySQL'],
     github: 'https://github.com/saran887/smart-voting-system',
-    demo: '#',
+    
   },
   {
     title: 'Sales Card Generator',
@@ -35,7 +35,7 @@ const projects = [
     description: 'Full-stack IoT-focused e-commerce platform with inventory management',
     technologies: ['React', 'Node.js', 'MongoDB', 'IoT Integration'],
     github: 'https://github.com/saran887/iot-ecommerce',
-    demo: '#',
+    demo: 'https://iot-webpage-git-main-sarans-projects-ffa5672c.vercel.app?_vercel_share=RPdbB1VKgefwYDmFvfAkqPUMsuoXKV0Q',
   },
 ];
 
