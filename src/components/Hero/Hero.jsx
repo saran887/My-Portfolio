@@ -24,7 +24,19 @@ const Hero = ({ scrollToSection }) => {
 
   return (
     <section ref={ref} className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden">
+      {/* Remove 3D Computer Model Background */}
+      {/* <div className="absolute inset-0 z-0 pointer-events-none">
+        <ComputerCanvas />
+      </div> */}
       <div className="absolute inset-0 bg-grid-gray-200 dark:bg-grid-gray-700/50" />
+      {/* Animated vertical line */}
+      <motion.div
+        initial={{ height: 0 }}
+        animate={isInView ? { height: '100%' } : { height: 0 }}
+        transition={{ duration: 1, delay: 0.2 }}
+        className="absolute left-1/2 top-0 w-1 h-full bg-gradient-to-b from-blue-400/30 to-transparent pointer-events-none"
+        style={{ zIndex: 1 }}
+      />
       <div className="relative z-10 container mx-auto px-4 py-20 text-center">
         <motion.div
           variants={container}
@@ -56,14 +68,6 @@ const Hero = ({ scrollToSection }) => {
             {`Full Stack Developer & AI Enthusiast`}
           </motion.p>
 
-          {/* Personal Introduction */}
-          <motion.p
-            variants={item}
-            className="text-base md:text-lg text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto"
-          >
-            I am a passionate technology enthusiast currently in final year of college, with a solid foundation in AI, IoT, and web development. I've worked on various real-world projects and have a strong desire to learn new technologies. My goal is to create smart, efficient solutions using AI and automation while continuously expanding my skills and taking on new challenges.
-          </motion.p>
-
           {/* Call to Action Button with animation */}
           <motion.button
             variants={item}
@@ -91,17 +95,6 @@ const Hero = ({ scrollToSection }) => {
             </button>
           </motion.div>
         </motion.div>
-      </div>
-      {/* Mouse scroll indicator at the bottom */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center z-20">
-        <div className="w-7 h-12 rounded-full border-2 border-gray-400 dark:border-gray-600 flex items-start justify-center">
-          <motion.div
-            animate={{ y: [4, 20, 4] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
-            className="w-2 h-2 mt-2 rounded-full bg-gray-400 dark:bg-gray-600"
-          />
-        </div>
-        <span className="mt-2 text-xs text-gray-500 dark:text-gray-400">Scroll</span>
       </div>
     </section>
   );

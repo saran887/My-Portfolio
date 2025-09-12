@@ -44,6 +44,7 @@ const Contact = () => {
       target: '_blank'
     }
   ];
+
   return (
     <section id="contact" className="py-20 bg-white dark:bg-gray-900">
       <div className="container mx-auto px-4">
