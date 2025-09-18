@@ -26,6 +26,21 @@ const projects = [
 		github: 'https://github.com/saran887/sales-card-generator',
 		
 	},
+	{
+		title: 'USB Object Detection Android App',
+		description:
+			'An Android application for real-time object detection using USB cameras. Built with TensorFlow Lite and OpenCV, it enables on-device inference and supports a variety of USB camera models. The app features a user-friendly interface, live detection overlay, and is ideal for embedded vision projects or mobile robotics.',
+		technologies: ['Android', 'Java', 'TensorFlow Lite', 'OpenCV', 'USB Camera'],
+		github: 'https://github.com/saran887/usb-object-detection-android-app',
+		
+	},
+	{
+			title: 'Traffic Aid',
+			description:
+				'Traffic Aid is an intelligent traffic signal system that detects ambulance sirens before the signal using a high-quality microphone and a Python-trained audio model. When an ambulance is detected, the system automatically turns the ambulance lane green and the other three lanes red, prioritizing the ambulance route using a First-Come-First-Serve (FCFS) algorithm. This helps avoid delays and ensures faster ambulance arrival, potentially saving lives.',
+			technologies: ['Python', 'Audio Processing', 'Machine Learning', 'Embedded Systems', 'FCFS Algorithm'],
+			
+		},
   {
 		title: 'Comez Landing Page',
 		description:
@@ -50,6 +65,7 @@ const projects = [
 		github: 'https://github.com/saran887/iot-ecommerce',
 		demo: 'https://iot-webpage-git-main-sarans-projects-ffa5672c.vercel.app?_vercel_share=RPdbB1VKgefwYDmFvfAkqPUMsuoXKV0Q',
 	},
+	
 	
 ];
 
@@ -101,6 +117,7 @@ const Projects = () => {
 								</h3>
 								<p className="text-gray-700 dark:text-gray-300 mb-4 text-base leading-relaxed">
 									{project.description}
+		
 								</p>
 								<div className="flex flex-wrap gap-2 mb-2">
 									{project.technologies.map((tech) => (

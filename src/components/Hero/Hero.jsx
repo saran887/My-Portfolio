@@ -63,10 +63,18 @@ const Hero = ({ scrollToSection }) => {
           {/* Subtitle with fade-in */}
           <motion.p
             variants={item}
-            className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 mb-8"
-          >
-            {`Full Stack Developer & AI Enthusiast`}
-          </motion.p>
+      className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 mb-4"
+      >
+      {`Full Stack Developer & AI Enthusiast`}
+      </motion.p>
+
+      {/* Personal Introduction */}
+      <motion.p
+      variants={item}
+      className="text-base md:text-lg text-gray-600 dark:text-gray-400 mb-8"
+      >
+      I am a passionate technology enthusiast currently in final year of college, with a solid foundation in AI, IoT, and web development. I've worked on various real-world projects and have a strong desire to learn new technologies. My goal is to create smart, efficient solutions using AI and automation while continuously expanding my skills and taking on new challenges.
+      </motion.p>
 
           {/* Call to Action Button with animation */}
           <motion.button
@@ -84,11 +92,11 @@ const Hero = ({ scrollToSection }) => {
             variants={item}
             animate={{ y: [0, 12, 0] }}
             transition={{ repeat: Infinity, duration: 1.5 }}
-            className="mt-16 flex justify-center"
+            className="pt-20- flex justify-center"
           >
             <button
               onClick={() => scrollToSection && scrollToSection('projects')}
-              className="p-3 rounded-full bg-white/80 dark:bg-gray-800/80 shadow-lg hover:scale-110 transition-transform border border-blue-200 dark:border-gray-700"
+              className="p-3 mt-18 rounded-full bg-white/80 dark:bg-gray-800/80 shadow-lg hover:scale-110 transition-transform border border-blue-200 dark:border-gray-700"
               aria-label="Scroll to Projects"
             >
               <FiChevronDown className="w-7 h-7 text-blue-500" />
